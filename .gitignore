@@ -1,5 +1,14 @@
 # Byte-compiled / optimized / DLL files
+<<<<<<< HEAD
 __pycache__/
+=======
+.idea
+.idea/*
+*.idea
+*.idea/*
+__pycache__/
+*migrations/*
+>>>>>>> 1.add app named ad,
 *.py[cod]
 *$py.class
 
