@@ -19,16 +19,12 @@ class Order(models.Model):
     user_id = models.IntegerField(verbose_name='用户编号')
     order_date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     order_to_goods_id = models.IntegerField('订单详情')
+    order_no = models.CharField( max_length=256, verbose_name="订单号")
     @property
     def order_log(self):
         if not hasattr(self,"_order_log"):
             self._order_log = Order_Log.objects.get(order_id=self.id)
         return self._order_log
-    @property
-    def order_no(self):
-        if not hasattr(self,"_order_no"):
-            self._order_no = int(self.id) + 200000000
-        return self._order_no
     @property
     def total_price(self):
         order_to_good_list = Order_to_Goods.objects.filter(order_id=self.id)

@@ -5,9 +5,16 @@
 # @Email   : xiedan0004@qq.com
 # @File    : config.py
 # @Software: PyCharm
+from lib.alipay.alipay import AliPay
+
+
 class Alipay_Config:
     AppID = '2016092400584411'
     HostIP = 'http://104.168.203.148/app/'
+    P_Key = r'lib/alipay/key/ying_yong_si_yao.txt'
+    S_Key = r"lib/alipay/key/zhi_fu_bao_gong_yao.txt"
+
+
 
 class SMS:
     YZX_SMS_URL = 'https://open.ucpaas.com/ol/sms/sendsms'
