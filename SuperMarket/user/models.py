@@ -1,16 +1,14 @@
 from django.db import models
-
-
+from lib.orm import ModelMixin
 # Create your models here.
-class User(models.Model):
+class User(models.Model,ModelMixin):
     phone = models.CharField(max_length=11, verbose_name='手机', unique=True)
     name = models.CharField(max_length=20, verbose_name='用户名', unique=True)
     password = models.CharField(max_length=256, verbose_name='密码')
     email = models.EmailField(verbose_name='邮箱', null=True, blank=True)
     img = models.CharField(max_length=256, verbose_name='头像', null=True, blank=True)
     credits = models.IntegerField(default=0, verbose_name="积分")
-    token = models.CharField(max_length=256, editable=False)
-
+    # token = models.CharField(max_length=256, editable=False)
     @property
     def address(self):
         if not hasattr(self, "_address"):

@@ -1,10 +1,8 @@
 from django.db import models
-
-
-# Create your models here.
+from lib.orm import ModelMixin
 
 # Create your models here.
-class Main(models.Model):
+class Main(models.Model,ModelMixin):
     img = models.CharField(max_length=200, verbose_name='图片地址')
     name = models.CharField(max_length=50, verbose_name='图片名')
     trackid = models.CharField(max_length=50, verbose_name='追踪ID')
@@ -41,7 +39,7 @@ class Shop(Main):
 
 
 class Mainshow(Main):
-    categoryid = models.CharField(max_length=20, verbose_name='购物车编号')
+    categoryid = models.CharField(max_length=20, verbose_name='类别ID')
     brandname = models.CharField(max_length=30, verbose_name='品牌名称')
 
     img1 = models.CharField(max_length=200, verbose_name='商品图片1')

@@ -1,7 +1,7 @@
 #Author    :MrDan
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
-from .api import *
+from .api import home
 urlpatterns = [
-    url(r'^$',index),
+    url(r'^pic/',home),
 ]

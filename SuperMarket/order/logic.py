@@ -1,33 +1,18 @@
 #Author    :LYS
 # -*- coding: utf-8 -*-
-import hashlib
-import uuid
-
-from SuperMarket import config
 from cart.models import Cart
 from common import errors, keys
 from .models import Order
 from order.models import Order_to_Goods
 from lib.httplib import render_json
-
-alipay = config.Alipay_Config.alipay
-
-# 加密使用
-def my_sha256(str):
-    # 创建sha256对象
-    m = hashlib.sha256()
-    # 更新这个对象
-    m.update(str.encode('utf-8'))
-
-    return m.hexdigest()
-
+from lib.verify import my_sha256
+from lib.pay import alipay
 
 def sell(order_no,discount = 0, credits=0,coupons = None):
     price = Order.objects.get(id=order_no).total_price
 
 # 添加订单且加入购物车
 def add_order(user):
-
     user_id = user.id
     # 取到当前用户购物车中所有的商品
     carts = Cart.objects.filter(user_id=user_id)
