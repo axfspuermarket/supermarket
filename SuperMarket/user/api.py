@@ -40,4 +40,14 @@ def register_login(request):
     request.session['uid'] = user.id
     return render_json()
 
+def address(request):
+    user = request.user
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        adress = request.POST.get("address")
+        UserAdress.objects.create(uid=user.id,name=name,phone=phone,adress=adress)
 
+    else:
+        user_adds = UserAdress.objects.filter(uid=user.id)
+        return render_json([user_add.to_dict() for user_add in user_adds])

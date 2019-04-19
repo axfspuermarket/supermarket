@@ -15,9 +15,11 @@ class AuthMiddleware(MiddlewareMixin):
     #请求过滤
     URL_NOT_LOGIN = [
         'api/login/',
-        'api/sms/'
+        'api/sms/',
+
     ]
     URL_NOT_POST_LIST=[
+        'api/address/'
     ]
 
     def process_request(self, request):
@@ -30,7 +32,8 @@ class AuthMiddleware(MiddlewareMixin):
                 not_login_allow = True
                 break
         #请求方式不为post且需POST请求,则抛出错误
-        if request.method != "POST" and not request.path in self.URL_NOT_POST_LIST:
+        if request.method != "POST" :
+            if not request.path in self.URL_NOT_POST_LIST:
             return render_json('Request Method Error!', errors.Host_Error.BAD_REQUEST.code)
         uid = request.session.get('uid')
         if (not uid) and (not not_login_allow) :

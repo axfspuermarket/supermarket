@@ -17,7 +17,7 @@ class User(models.Model,ModelMixin):
             return self._address
 
 
-class UserAdress(models.Model):
+class UserAdress(models.Model,ModelMixin):
     uid = models.IntegerField(verbose_name='用户ID')
     name = models.CharField(max_length=30, verbose_name='收货人')
     phone = models.CharField(max_length=30, verbose_name='联系方式')
