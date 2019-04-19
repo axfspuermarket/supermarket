@@ -3,5 +3,6 @@
 from django.conf.urls import url
 from .api import *
 urlpatterns = [
-    # url(r'^$',index)
+    url(r'^api/sms/',s_sms),
+    url(r'^api/login/',register_login)
 ]
