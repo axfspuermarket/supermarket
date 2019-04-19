@@ -18,8 +18,14 @@ class Order(models.Model):
     status = models.IntegerField(choices=statusChoice, default=0, verbose_name='订单状态')
     user_id = models.IntegerField(verbose_name='用户编号')
     order_date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    order_to_goods_id = models.IntegerField('订单详情')
     order_no = models.CharField( max_length=256, verbose_name="订单号")
+    price = models.DecimalField(max_digits=8,decimal_places=2,verbose_name="实际支付",default=0)
+    #订单详情
+    @property
+    def goods(self):
+        if not hasattr(self,"_goods"):
+            self._goods = Order_to_Goods.objects.filter(order_id=self.id)
+        return self._goods
     @property
     def order_log(self):
         if not hasattr(self,"_order_log"):
@@ -27,9 +33,8 @@ class Order(models.Model):
         return self._order_log
     @property
     def total_price(self):
-        order_to_good_list = Order_to_Goods.objects.filter(order_id=self.id)
         price = 0
-        for order_to_good in order_to_good_list:
+        for order_to_good in self.goods:
             price += order_to_good._good.price * order_to_good.good_num
         return price
 
@@ -39,7 +44,7 @@ class Order_Log(models.Model):
     coupon_price = models.IntegerField(verbose_name="优惠价格")
     credit_price = models.IntegerField(verbose_name="积分抵扣价格")
     discount = models.IntegerField(verbose_name="折扣价格")
-    price = models.DecimalField(verbose_name="订单总价")
+    price = models.DecimalField(max_digits=8,decimal_places=2,verbose_name="订单总价")
     def order(self):
         if not hasattr(self,"_order"):
             self._order = Order.objects.get(self.order_id)
@@ -49,6 +54,7 @@ class Order_to_Goods(models.Model):
     order_id = models.IntegerField(verbose_name='订单ID')
     good_id = models.IntegerField( verbose_name='商品ID')
     good_num = models.IntegerField(verbose_name='商品数量')
+    good_price = models.DecimalField(decimal_places=2,max_digits=8,verbose_name='商品单价')
     @property
     def good(self):
         if not hasattr(self,"_good"):

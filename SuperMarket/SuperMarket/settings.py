@@ -98,12 +98,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'Home',
+    'ad',
     'order',
     'cart',
     'event',
     'user',
     'good',
+    'pay',
+    'useradmin'
 ]
 
 MIDDLEWARE = [
@@ -113,11 +115,12 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware'
     'common.middleware.AuthMiddleware',
     'common.middleware.ExceptionHandlerMiddleware',
     'common.middleware.SeverHandlerMiddleware',
 ]
+
 
 ROOT_URLCONF = 'SuperMarket.urls'
 
@@ -143,15 +146,8 @@ WSGI_APPLICATION = 'SuperMarket.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "supermarket",
-        'USER': 'mrdan',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    },
-    'debug': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

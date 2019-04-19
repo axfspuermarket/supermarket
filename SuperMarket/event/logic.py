@@ -20,13 +20,13 @@ def make_coupon(coupon_type_id, num = 100):
         Coupon.objects.create(coupon_type_id = coupon_type.id,)
 
 #使用积分
-def credit(price,credits = None):
+def use_credit(price,credits = None):
     credit = credits // config.CREDITS_EXPEND
     total_price = price - credit
     return total_price
 
 #使用折扣
-def discount_price(price,discount_id):
+def use_discount_price(price,discount_id):
     try:
         # 获取折扣
         discount = Discount.objects.get(discount_id)
@@ -38,7 +38,7 @@ def discount_price(price,discount_id):
     return total_price
 
 #使用优惠
-def coupon_price(price,coupon_id):
+def use_coupon(price,coupon_id):
     try:
         coupon = Coupon.objects.get(coupon_id)
         # 验证优惠券是否有效

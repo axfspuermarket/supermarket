@@ -1,18 +1,15 @@
 # Author    :MrDan
 # -*- coding: utf-8 -*-
-# @Time    : 2019/4/9 10:46
-# @Author  : MrDan
-# @Email   : xiedan0004@qq.com
-# @File    : config.py
-# @Software: PyCharm
-from lib.alipay.alipay import AliPay
-
+import os
+from SuperMarket.settings import BASE_DIR
 
 class Alipay_Config:
     AppID = '2016092400584411'
     HostIP = 'http://104.168.203.148/app/'
-    P_Key = r'lib/alipay/key/ying_yong_si_yao.txt'
-    S_Key = r"lib/alipay/key/zhi_fu_bao_gong_yao.txt"
+    P_Key = os.path.join(BASE_DIR,r'lib/alipay/key/ying_yong_si_yao.txt')
+    S_Key = os.path.join(BASE_DIR,r"lib/alipay/key/zhi_fu_bao_gong_yao.txt")
+    Notify_url = HostIP + "notify/",
+    Return_url = HostIP + "result/",
 
 
 

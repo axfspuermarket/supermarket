@@ -1,5 +1,6 @@
 from django.db import models
 from lib.orm import ModelMixin
+from django.contrib.auth.hashers import make_password, check_password
 # Create your models here.
 class User(models.Model,ModelMixin):
     phone = models.CharField(max_length=11, verbose_name='手机', unique=True)

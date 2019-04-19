@@ -3,7 +3,7 @@ from lib.httplib import render_json
 # Create your views here.
 #首页 GET
 
-def home(request):
+def homes(request):
     # 取出所有的商品
     data = {}
     mains = Mainshow.objects.all()

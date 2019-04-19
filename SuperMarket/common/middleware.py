@@ -12,23 +12,17 @@ error_logger = logging.getLogger("err")
 class AuthMiddleware(MiddlewareMixin):
     #请求过滤
     URL_WHITE_LIST = [
-        '/usr/api/submit_phone',
-        '/usr/api/submit_vcode',
     ]
     URL_NOT_POST_LIST=[
-        '/usr/api/get_profile',
-        '/social/api/get_rcmd_user'
-        '/social/api/regret',
-        '/social/api/get_who_liked_me'
     ]
 
     def process_request(self, request):
         path = request.path
-        for URL in  self.URL_WHITE_LIST:
-            if path in URL:
-                return
-        if request.method != "POST" and not request.path in self.URL_NOT_POST_LIST:
-            return render_json('Request Method Error!', errors.Host_Error.BAD_REQUEST.code)
+        # for URL in  self.URL_WHITE_LIST:
+        #     if path in URL:
+        #         return
+        # if request.method != "POST" and not request.path in self.URL_NOT_POST_LIST:
+        #     return render_json('Request Method Error!', errors.Host_Error.BAD_REQUEST.code)
         uid = request.session.get('uid')
         if not uid:
             return render_json('User Not Login!', errors.User_Error.NOT_IDENT.code)
@@ -38,9 +32,6 @@ class AuthMiddleware(MiddlewareMixin):
             request.user = user
         except User.DoesNotExist:
             return render_json('Not This User!', errors.User_Error.NOT_IDENT.code)
-    def process_response(self,request,response):
-        # print(response)
-        return response
 
 class ExceptionHandlerMiddleware(MiddlewareMixin):
     #报错模块
@@ -58,6 +49,6 @@ class SeverHandlerMiddleware(MiddlewareMixin):
         count = cache.get(key,0)
         if count > 2:
             cache.set(key, count, 60)
-            return render_json(errors.REQUEST_FORBID.msg, errors.REQUEST_FORBID.code)
+            return render_json(errors.Host_Error.REQUEST_FORBID.msg, errors.Host_Error.REQUEST_FORBID.code)
         count += 1
         cache.set(key,count,2)
