@@ -13,6 +13,7 @@ class Host_Error:
 class User_Error:
     NOT_THIS_USER = gen_logice_error(name="NOT_THIS_USER", code=4101, msg="Not This User!")
     NOT_IDENT = gen_logice_error(name="NOT_IDENT", code=4102, msg="Ident Error!")
+    LOGIN_REPEAT = gen_logice_error(name="LOGIN_REPEAT", code=4103, msg="Login Repeat!")
 
 class Event_Error:
     NOT_THIS_EVENT = gen_logice_error(name="NOT_THIS_EVENT", code=4201, msg="Not This Event!")

@@ -18,10 +18,12 @@ def s_sms(request):
     # 把验证码放到缓存中,过期时间60秒
     cache.set(keys.SMS_KEY % phone_num, vcode, 60)
     # print(phone_num)
-    return render_json()
+    return render_json({"vcode":vcode})
 
 # 注册/登录
 def register_login(request):
+    if request.user:
+        raise errors.User_Error.LOGIN_REPEAT
     vcode = request.POST.get('vcode')
     phone_num = request.POST.get('phone')
 

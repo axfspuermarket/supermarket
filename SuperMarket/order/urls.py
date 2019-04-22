@@ -5,5 +5,6 @@ from .api import *
 
 urlpatterns=[
     # url(r'^$',index),
+    # url(r'^/api/types/',types)
 
 ]
