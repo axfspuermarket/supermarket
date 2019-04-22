@@ -22,6 +22,8 @@ class AuthMiddleware(MiddlewareMixin):
     URL_NOT_POST_LIST=[
         '/api/address/',
         '/admin/',
+        '/api/goods/',
+        '/api/types/'
     ]
 
     def process_request(self, request):

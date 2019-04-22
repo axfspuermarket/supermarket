@@ -4,13 +4,10 @@
 from lib.httplib import render_json
 from .logic import *
 from django.core.cache import cache
-from common import errors
 # Create your views here.
 
 # 加入购物车
 def create_cart(request):
-    if not request.method == 'POST':
-        return render_json('request method error', errors.REQUEST_ERROR.code)
     gid = request.POST.get('gid')
     num = request.POST.get('num')
     uid = request.user.id
@@ -20,8 +17,6 @@ def create_cart(request):
 
 # 增减购物车
 def update_cart(request):
-    if not request.method == 'POST':
-        return render_json('request method error', errors.REQUEST_ERROR.code)
     '''
      "event":"add", //可以是 minus(减)  update(开通会员,使用优惠券等)
     "goodId":1,
@@ -35,7 +30,7 @@ def update_cart(request):
     if event == 'add':
         cart_num_add(cartid)
     else:
-        cart_num_sub(cartid)
+        cart_num_sub(cartid,request.user.id)
     cart = cache.get(cartid)
     return render_json(cart)
 

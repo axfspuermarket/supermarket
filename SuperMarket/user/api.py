@@ -22,7 +22,8 @@ def s_sms(request):
 
 # 注册/登录
 def register_login(request):
-    if request.user:
+
+    if request.session.get('uid'):
         raise errors.User_Error.LOGIN_REPEAT
     vcode = request.POST.get('vcode')
     phone_num = request.POST.get('phone')

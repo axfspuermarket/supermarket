@@ -27,6 +27,7 @@ class Order_Error:
 class Cart_Error:
     NOT_THIS_GOOD = gen_logice_error(name="NOT_THIS_GOOD", code=4401, msg="Not This Good!")
     NOT_THIS_CART = gen_logice_error(name="NOT_THIS_CART", code=4402, msg="Not This Cart!")
+    ValueError = gen_logice_error(name="ValueError", code=4403, msg="Cart Value Error!")
 
 class Pay_Error:
     PAY_DEFEATED = gen_logice_error(name="PAY_DEFEATED", code=4401, msg="Pay Defeated!")

@@ -4,9 +4,10 @@ from .models import *
 # Create your views here.
 # 分类 GET
 def goods(request):
-    types_id = request.GET.get("types")
-    child_type = request.GET.get("childtype")
-    num = request.GET.get("num", 0)
+    types_id = request.GET.get("typeid",0)
+    child_type = request.GET.get("childtype",None)
+    num = request.GET.get("num", 100)
+    print(types_id)
     goods = get_goods(types_id,child_type,num)
     return render_json(goods)
 

@@ -7,13 +7,8 @@ from django.core.cache import cache
 
 # 创建购物车
 def Create_cart(user_id, goods_id, num):
+    num = int(num) if num.isdigit() else 0
 
-    try:
-        if int(num) < 0:
-            raise errors.NUM_ERROR
-    except:
-        raise errors.NUM_ERROR
-    num = int(num)
     carts = Cart.objects.filter(user_id=user_id, goods_id=goods_id)
 
     if carts.exists():
@@ -42,7 +37,7 @@ def cart_num_add(cartid):
     carts = Cart.objects.filter(id=cartid)
     # 如果没有这条购物车的记录
     if not carts:
-        raise errors.NO_THIS_CART
+        raise errors.Cart_Error.NOT_THIS_CART
     else:
         # 如果有记录，就把数量加1
         cart = carts.first()
@@ -52,12 +47,12 @@ def cart_num_add(cartid):
 
 
 # 商品数量减1
-def cart_num_sub(cartid):
+def cart_num_sub(cartid,user_id):
 
-    carts = Cart.objects.filter(id=cartid)
+    carts = Cart.objects.filter(id=cartid,user_id=user_id)
     # 如果没有这条购物车的记录
     if not carts:
-       raise errors.NO_THIS_CART.code
+       raise errors.Cart_Error.NOT_THIS_CART
     else:
         # 如果有记录，就把数量加1
         cart = carts.first()
@@ -67,17 +62,17 @@ def cart_num_sub(cartid):
 
         else:
            # 抛出异常，购物车没有足够数量可以减少
-            raise errors.NUM_ERROR('num is min')
+            raise errors.Cart_Error.ValueError
 
 
 
 
 # 购物车的删除
-def cart_del(cartid):
-    cart = Cart.objects.filter(id=cartid)
+def cart_del(cartid,user_id ):
+    cart = Cart.objects.filter(id=cartid,user_id=user_id)
     # 如果没有这条购物车的记录
     if not cart:
-        raise errors.NO_THIS_CART.code
+        raise errors.Cart_Error.NOT_THIS_CART
     else:
         # 删除购物车记录
         cart.delete()

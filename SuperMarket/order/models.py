@@ -6,7 +6,7 @@ from good.models import Goods
 # Create your models here.
 class OrderMain(models.Model):
     user = models.ForeignKey(User)
-    goods = models.ForeignKey(Goods)
+    # goods = models.ForeignKey(Goods)
     num = models.IntegerField(default=1)
 
     class Meta:
